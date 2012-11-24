@@ -9,6 +9,7 @@ import (
 var greekLowerCase string = "αβγδεζηθικλμνξοπρστυφχψω"
 var greekUpperCase string = "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ"
 
+
 // Constants
 const Π float32 = 3.14159
 
@@ -115,5 +116,37 @@ inner:			for a < 10 {
 			break outter
 		}
 		break
+	}
+	
+	// Loops can loop over slices, arrays, stings, maps and channels with "range"
+	// N.B. In this case the type of char is rune and the returned positions are NOT 0, 1, 2
+	for pos, char := range "aΦx" {
+		fmt.Printf("Character 0x%x starts at byte position %d\n", char, pos)
+	}
+	
+	// switch can have an expression to be evaluated
+	switchExpression := "hello"			
+	switch switchExpression {
+		case "hello":
+			fmt.Println("Case: hello")
+			fallthrough			// Won't fall through unless told
+		case "bye":
+			fmt.Println("Case: bye")
+		case "fish", "dog", "ant":		// Comma separated list of cases
+		default:
+			fmt.Println("Case: default")	// If all else fails do this
+	}
+	
+	// switch can be expressionless, first true case is executed
+	// Can be used like if-else-if-else chain
+	switch {
+		case switchExpression == "first":	// We can compare strings easily
+			fmt.Println("First case")
+		case switchExpression == "second":
+			fmt.Println("Second case")
+
+		default:
+			print("No case")		// print and println are built in functions
+			println("")
 	}
 }
