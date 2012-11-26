@@ -21,8 +21,34 @@ type MessageRx struct {
 	Body string
 }
 
-// An istance of message type
+// An instance of message type
 var outMessage = MessageTx{"Alice", "Hello", 1294706395881547000}
+
+
+// An example of a json message
+var jasonBytes = []byte(`{
+    "firstName": "John",
+    "lastName": "Smith",
+    "age": 25,
+    "address": {
+        "streetAddress": "21 2nd Street",
+        "city": "New York",
+        "state": "NY",
+        "postalCode": 10021,
+	"subObject": {"start": "something"}
+    },
+    "phoneNumber": [
+        {
+            "type": "home",
+            "number": "212 555-1234",
+     	    "subObject": ["start", "something"]
+        },
+        {
+            "type": "fax",
+            "number": "646 555-4567"
+        }
+    ]
+}`)
 
 func main() {
 	fmt.Println("JSON test")
@@ -69,36 +95,12 @@ func main() {
 		fmt.Println("Don't know this type")
 	}
 
-	// So..We can parse any JSON string into an empty interface 
-	//	b := []byte(`{"Name": "Julie",  "dada": null, "Live": true, "Age":6,  "Parents":["Gomez", "Morticia"]}`)
 	fmt.Println("--------------------------------------------\n")
 	
-	b := []byte(`{
-    "firstName": "John",
-    "lastName": "Smith",
-    "age": 25,
-    "address": {
-        "streetAddress": "21 2nd Street",
-        "city": "New York",
-        "state": "NY",
-        "postalCode": 10021,
-	"subObject": {"start": "something"}
-    },
-    "phoneNumber": [
-        {
-            "type": "home",
-            "number": "212 555-1234",
-     	    "subObject": ["start", "something"]
-        },
-        {
-            "type": "fax",
-            "number": "646 555-4567"
-        }
-    ]
-}`)
-
+	// So..We can parse any JSON string into an empty interface 
+	//	b := []byte(`{"Name": "Julie",  "dada": null, "Live": true, "Age":6,  "Parents":["Gomez", "Morticia"]}`)
 	var f interface{}
-	err = json.Unmarshal(b, &f)
+	err = json.Unmarshal(jasonBytes, &f)
 	fmt.Printf("f is:\n%v\n", f)
 
 	m, ok := f.(map[string]interface{})
